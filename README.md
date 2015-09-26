@@ -1,2 +1,5 @@
 # ns2
-ns2 clan site
+
+Natural Selection 2 Clan Website
+
+This is the backend for our NS2 Clan website.
