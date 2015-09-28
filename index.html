@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta charset="UTF-8">
     <title>NS2 Website by XoZet</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,27 +10,17 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/jquery.gcal_flow.css" media="screen">
+    <link type="text/css" rel="stylesheet" href="https://www.google.com/calendar/static/d5b3d44417ec11b5f3234ab68cd94ed6embedcompiled_fastui.css">
   </head>
-  <body>
+
+  <body onload="pageLoaded()" style="background-color:#fff">
     <section class="page-header">
       <h1 class="project-name">NS2 Website</h1>
       <h2 class="project-tagline">NS2 Clan Website</h2>
     </section>
 
     <section class="main-content">
-      <p>Here is our calender. Sign in with your google account and sign up for events.</p>
       <iframe src="https://www.google.com/calendar/embed?src=loce0h39nd72163k9csuot0bgc%40group.calendar.google.com&ctz=Europe/London" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
-      <p>Palllllaaaa</p>
-      <div id="gcf-simple"></div>
-        <script type="text/javascript" src="javascripts/jquery.gcal_flow.js">
-          $(function() { $('#gcf-simple').gCalFlow({
-          calid: 'loce0h39nd72163k9csuot0bgc@group.calendar.google.com',
-          apikey: 'AIzaSyCOeVJ39kFGTOqjFxrIUAX59egkMQJZlyI'
-          });});
-        </script>
-      <p>Here is our calender. Watch events and sign up if you want to join in the fun : )</p>
     </section>
-
-  
   </body>
 </html>
