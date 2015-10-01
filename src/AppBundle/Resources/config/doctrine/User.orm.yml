@@ -1,0 +1,45 @@
+AppBundle\Entity\User:
+    type: entity
+    table: user
+    uniqueConstraints:
+        username:
+            columns:
+                - username
+                - email
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        username:
+            type: string
+            nullable: false
+            length: 32
+            unique: true
+            options:
+                fixed: false
+        email:
+            type: string
+            nullable: false
+            length: 256
+            unique: true
+            options:
+                fixed: false
+        emailAuth:
+            type: string
+            nullable: false
+            length: 64
+            options:
+                fixed: false
+            column: email_auth
+        active:
+            type: boolean
+            nullable: false
+            options:
+                default: '0'
+    lifecycleCallbacks: {  }
