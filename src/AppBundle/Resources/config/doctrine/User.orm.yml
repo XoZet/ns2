@@ -1,6 +1,7 @@
-AppBundle\Entity\User:
+AppBundle\Security\User\User:
     type: entity
     table: user
+    repositoryClass: AppBundle\Security\User\UserProvider
     uniqueConstraints:
         username:
             columns:
@@ -37,9 +38,19 @@ AppBundle\Entity\User:
             options:
                 fixed: false
             column: email_auth
-        active:
+        isActive:
             type: boolean
             nullable: false
+            column: active
             options:
                 default: '0'
+        roles:
+            type: simple_array
+            nullable: false
+        regDate:
+            type: datetime
+            nullable: false
+            column: registration_date
+            options:
+                default: CURRENT_TIMESTAMP
     lifecycleCallbacks: {  }

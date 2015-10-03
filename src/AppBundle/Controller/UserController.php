@@ -5,6 +5,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class UserController extends Controller
 {
+	public indexAction()
+	{
+		$response = $this->forward('AppBundle:User:list');
+
+       return $response;
+	}
 
 	public lobbyAction() 
 	{
@@ -18,7 +24,7 @@ class UserController extends Controller
 
 	public listAction($page)
 	{
-
+		
 	}
 
 }
