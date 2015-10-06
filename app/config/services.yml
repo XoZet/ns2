@@ -4,11 +4,4 @@ parameters:
 #    parameter_name: value
 
 services:
-    db_user_provider:
-        class: AppBundle\Security\User\UserProvider
-    password_encoder:
-        class: AppBundle\Security\PasswordEncoder
-        arguments: ['%pw_enc_cost%']
-    login_authenticator:
-        class: AppBundle\Security\LoginFormAuthenticator
-        arguments: ['%password_encoder%']
+
