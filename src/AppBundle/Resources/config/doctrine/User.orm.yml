@@ -1,6 +1,12 @@
-AppBundle\Entity\User:
+AppBundle\Security\User\User:
     type: entity
-    table: fos_user
+    table: user
+    repositoryClass: AppBundle\Security\User\UserProvider
+    uniqueConstraints:
+        username:
+            columns:
+                - username
+                - email
     id:
         id:
             type: integer
@@ -9,8 +15,38 @@ AppBundle\Entity\User:
                 unsigned: false
             id: true
             generator:
-                strategy: AUTO
+                strategy: IDENTITY
     fields:
+        username:
+            type: string
+            nullable: false
+            length: 32
+            unique: true
+            options:
+                fixed: false
+        email:
+            type: string
+            nullable: false
+            length: 256
+            unique: true
+            options:
+                fixed: false
+        emailAuth:
+            type: string
+            nullable: false
+            length: 64
+            options:
+                fixed: false
+            column: email_auth
+        isActive:
+            type: boolean
+            nullable: false
+            column: active
+            options:
+                default: '0'
+        roles:
+            type: simple_array
+            nullable: false
         regDate:
             type: datetime
             nullable: false

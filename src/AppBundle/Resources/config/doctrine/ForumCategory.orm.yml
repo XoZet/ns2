@@ -1,0 +1,39 @@
+AppBundle\Entity\ForumCategory:
+    type: entity
+    table: forum_category
+    indexes:
+        parent:
+            columns:
+                - parent
+    uniqueConstraints:
+        title:
+            columns:
+                - title
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        title:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+    manyToOne:
+        parent:
+            targetEntity: ForumCategory
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                parent:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

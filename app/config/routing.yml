@@ -54,7 +54,3 @@ user_lobby:
 user_profile:
     path: /user/{name}
     defaults: {_controller: AppBundle:User:profile}
-
-fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
-
