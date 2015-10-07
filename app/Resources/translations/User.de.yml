@@ -1,0 +1,24 @@
+security:
+    login:
+        username: 'Username:'
+        password: 'Passwort:'
+        remember_me: 'Eingeloggt bleiben'
+        submit: 'Einloggen'
+registration:
+    check_mail: 'Benutzer wurde erstellt. Dir wurde eine E-Mail mit Anweisungen zur Aktivierung an die angegebene Adresse gesendet.'
+    confirmed: 'Erfolg! Dein Account kann jetzt verwendet werden.'
+    submit: 'Registrieren'
+    email:
+        subject: 'Willkommen %username%!'
+        message: |
+            'Hallo %username%!'
+
+            'Bitte besuche folgenden Link um deinen Account zu erstellen: %confirmationUrl%'
+form:
+    username: 'Username:'
+    email: 'E-Mail:'
+    current_password: 'Aktuelles Passwort:'
+    password: 'Passwort:'
+    password_confirmation: 'Passwort wiederholen:'
+    new_password: 'Neues passwort:'
+    new_password_confirmation: 'Passwort wiederholen:'

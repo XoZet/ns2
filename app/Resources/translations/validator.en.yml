@@ -1,0 +1,21 @@
+user:
+    username:
+        duplicate: 'Username is already existing'
+        blank: 'You need to enter a username'
+        short: 'Username is too short'
+        long: 'Username is too long'
+    email:
+        duplicate: 'Email is already used'
+        blank: 'You need to enter an email'
+        short: 'Email is too short'
+        long: 'Email is too long'
+        invalid: 'Email is not valid'
+    password:
+        blank: 'You need to enter a password'
+        short: 'Password is too short'
+        mismatch: "Passwords don't match"
+    new_password:
+        blank: 'You need enter a new password'
+        short: 'New password is too short'
+    current_password:
+        invalid: 'The entered password is invalid'

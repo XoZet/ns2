@@ -24,6 +24,7 @@ security:
                 use_forward: true
                 default_target_path: user_lobby
                 always_use_default_target_path: true
+                csrf_provider: security.csrf.token_manager
             provider: db_provider
             remember_me:
                 key: %secret%

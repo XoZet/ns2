@@ -1,0 +1,20 @@
+user:
+    username:
+        duplicate: 'Username existiert bereits'
+        blank: 'Username darf nicht leer sein'
+        short: 'Username ist zu kurz'
+        long: 'Username ist zu lang'
+    email:
+        duplicate: 'Email wird bereits verwendet'
+        blank: 'E-Mail darf nicht leer sein'
+        long: 'Email ist zu lang'
+        invalid: 'Keine gültige E-Mail-Adresse'
+    password:
+        blank: 'Passwort darf nicht leer sein'
+        short: 'Passwort ist zu kurz'
+        mismatch: 'Passwörter stimmen nicht überein'
+    new_password:
+        blank: 'Bitte neues Passwort angeben'
+        short: 'Das neue Passwort ist zu kurz'
+    current_password:
+        invalid: 'Das Passwort ist nicht gültig'
