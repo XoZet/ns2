@@ -32,4 +32,4 @@ security:
 
     encoders:
         Acme\TestBundle\Entity\User:
-            id: password_authenticator
+            id: password_encoder

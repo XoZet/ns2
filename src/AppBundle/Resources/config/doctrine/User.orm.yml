@@ -2,11 +2,6 @@ AppBundle\Security\User\User:
     type: entity
     table: user
     repositoryClass: AppBundle\Security\User\UserProvider
-    uniqueConstraints:
-        username:
-            columns:
-                - username
-                - email
     id:
         id:
             type: integer
@@ -31,26 +26,37 @@ AppBundle\Security\User\User:
             unique: true
             options:
                 fixed: false
-        emailAuth:
+        confirmationToken:
             type: string
             nullable: false
             length: 64
             options:
                 fixed: false
-            column: email_auth
-        isActive:
+            column: confirmation_token
+        enabled:
             type: boolean
             nullable: false
-            column: active
-            options:
-                default: '0'
         roles:
             type: simple_array
             nullable: false
-        regDate:
+        registrationDate:
             type: datetime
             nullable: false
             column: registration_date
             options:
                 default: CURRENT_TIMESTAMP
-    lifecycleCallbacks: {  }
+        lastLogin:
+            type: datetime
+            nullable: true
+            column: last_login
+        expirationDate:
+            type: datetime
+            nullable: true
+            column: expires_at
+        pwResetRequestDate:
+            type: datetime
+            nullable: true
+            column: password_requested_at
+        expired:
+            type: boolean
+            nullable: false

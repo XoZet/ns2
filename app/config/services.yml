@@ -6,6 +6,7 @@ parameters:
 services:
     db_user_provider:
         class: AppBundle\Security\User\UserProvider
+        arguments: ['%password_encoder%']
     password_encoder:
         class: AppBundle\Security\PasswordEncoder
         arguments: ['%pw_enc_cost%']

@@ -5,17 +5,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class ForumController extends Controller
 {
-	public indexAction()
+	public function indexAction()
 	{
 
 	}
 
-	public categoryAction($id)
+	public function categoryAction($id)
 	{
 
 	}
 
-	public threadAction($id,$page = 1)
+	public function threadAction($id,$page = 1)
 	{
 
 	}

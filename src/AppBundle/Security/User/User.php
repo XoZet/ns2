@@ -2,51 +2,68 @@
 namespace AppBundle\Security\User;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 
 
-class User implements AdvancedUserInterface, \Serializable
+class User implements AdvancedUserInterface, EquatableInterface, \Serializable
 {
+    /* ATTRIBUTES */
 
-    private $id;
+    protected $id;
 
-    private $username;
+    protected $username;
 
-    private $password;
+    protected $password;
 
-    private $email;
+    protected $plainPassword;
 
-    private $emailAuth;
+    protected $email;
 
-    private $isActive;
+    protected $confirmationToken;
 
-    private $roles;
+    protected $enabled;
 
-    private $regDate;
+    protected $roles;
+
+    protected $registrationDate;
+
+    protected $lastLogin;
+
+    protected $expired;
+
+    protected $expirationDate;
+
+    protected $pwResetRequestDate;
+
+    public function __construct()
+    {
+        $this->enabled = false;
+        $this->registrationDate = new \DateTime();
+        $this->expired = false;
+        $this->roles = ['ROLES_USER'];
+    }
+
+    /* GETTER */ 
+
+    public function getId()
+    {
+        return $this->id;
+    }
 
     public function getUsername()
     {
         return $this->username;
     }
 
-    public function setUsername($username) 
-    {
-        $this->username = $username;
-    }
-
-    public function getSalt()
-    {
-        return null;
-    }
-
     public function getPassword()
     {
         return $this->password;
     }
-    public function setPassword($password)
+
+    public function getPlainPassword()
     {
-        $this->password = $password;
+        return $this->plainPassword;
     }
 
     public function getEmail()
@@ -54,19 +71,9 @@ class User implements AdvancedUserInterface, \Serializable
         return $this->email;
     }
 
-    public function setEmail($email)
+    public function getConfirmationToken()
     {
-        $this->email = $email;
-    }
-
-    public function getEmailAuth()
-    {
-        return $this->emailAuth;
-    }
-
-    public function setEmailAuth($emailAuth)
-    {
-        $this->emailAuth = $emailAuth;
+        return $this->confirmationToken;
     }
 
     public function getRoles()
@@ -74,31 +81,113 @@ class User implements AdvancedUserInterface, \Serializable
         return $roles;
     }
 
+    public function getregistrationDate($format = null)
+    {
+        
+        if(!is_null($format))
+        {
+            return date_format($this->registrationDate, $format);
+        }
+
+        return $this->registrationDate;
+
+    }
+
+    public function getLastLogin($format = null)
+    {
+
+        if(!is_null($format))
+        {
+            return date_format($this->lastLogin, $format);
+        }
+
+        return $this->lastLogin;
+    }
+
+    public function getPwResetRequestDate()
+    {
+        return $this->pwResetRequestDate;
+    }
+
+    /* SETTER */
+
+    public function setId($id)
+    {
+        $this->id = $id;
+    }    
+
+    public function setUsername($username) 
+    {
+        $this->username = $username;
+    }
+    
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+    }
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    public function setConfirmationToken($confirmationToken)
+    {
+        $this->confirmationToken = $confirmationToken;
+    }
+
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+    }
+
     public function setRoles(array $roles)
     {
         $this->roles = $roles;
     }
 
-    public function getRegDate($format = null)
+    public function setregistrationDate(\DateTime $registrationDate)
     {
-        
-        if(!is_null($format))
-        {
-            return date_format($this->regDate, $format);
-        }
-
-        return $this->regDate;
-
+        $this->registrationDate = $registrationDate;
     }
 
-    public function setRegDate($regDate)
+    public function setLastLogin(\DateTime $lastLogin)
     {
-        $this->regDate = $regDate;
+        $this->lastLogin = $lastLogin;
+    }
+
+    public function setPwResetRequestDate(\DateTime $pwResetRequestDate)
+    {
+        $this->pwResetRequestDate = $pwResetRequestDate;
+    }
+
+    /* INTERFACE FUNCTIONS */ 
+
+    public function getSalt()
+    {
+        return null;
     }
 
     public function isAccountNonExpired()
     {
-        return true;
+        if (true === $this->expired) {
+            return false;
+        }
+
+        if(null !== $this->expiresAt && $this->expiresAt->getTimestamp() > time())
+        {
+            $this->expired = true;
+        } else {
+            $this->expired = false;
+        }
+
+        return !$this->expired;
+        
     }
 
     public function isAccountNonLocked()
@@ -113,28 +202,17 @@ class User implements AdvancedUserInterface, \Serializable
 
     public function isEnabled()
     {
-        return $this->isActive;
+        return $this->enabled;
     }
 
     public function eraseCredentials()
     {
+        $this->plainPassword = null;
     }
 
     public function isEqualTo(UserInterface $user)
     {
         if(!($this->id == $user->id))
-        {
-            return false;
-        }
-        if(!($this->username == $user->username))
-        {
-            return false;
-        }
-        if(!($this->password == $user->password))
-        {
-            return false;
-        }
-        if(!($this->regDate == $user->regDate)
         {
             return false;
         }
@@ -147,10 +225,14 @@ class User implements AdvancedUserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,
+            $this->email,
             $this->roles,
-            $this->isActive,
-            $this->emailAuth,
-            $this->regDate
+            $this->enabled,
+            $this->confirmationToken,
+            $this->registrationDate,
+            $this->lastLogin,
+            $this->expirationDate,
+            $this->pwResetRequestDate
         ));
     }
 
@@ -161,10 +243,33 @@ class User implements AdvancedUserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,
+            $this->email,
             $this->roles,
-            $this->isActive,
-            $this->emailAuth,
-            $this->regDate
+            $this->enabled,
+            $this->confirmationToken,
+            $this->registrationDate,
+            $this->lastLogin,
+            $this->expirationDate,
+            $this->pwResetRequestDate
         ) = unserialize($serialized);
     }
+
+    /* ADDITIONAL FUNCTIONS */ 
+
+    public function addRole($role)
+    {
+        $role = strtoupper($role);
+        if (!in_array($role, $this->roles, true)) {
+            $this->roles[] = $role;
+        }
+
+        return $this;
+    }
+
+    public function hasRole($role)
+    {
+        return in_array(strtoupper($role), $this->getRoles(), true);
+    }
+
+    
 }

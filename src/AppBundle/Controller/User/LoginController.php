@@ -1,9 +1,9 @@
 <?php
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\User;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class SecurityController extends Controller
+class LoginController extends Controller
 {
 
 	public function loginAction(Request $request)

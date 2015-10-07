@@ -7,7 +7,14 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 
 class UserProvider extends EntityRepository implements UserProviderInterface
-{
+{  
+    protected $pwEncoder;
+
+    public function __construct(PasswordEncoderInterface $pwEncoder)
+    {
+        $this->pwEncoder = $pwEncoder;
+    }
+
     public function loadUserByUsername($username)
     {
         
@@ -40,42 +47,40 @@ class UserProvider extends EntityRepository implements UserProviderInterface
 
     public function supportsClass($class)
     {
-        return $class === 'AppBundle\Security\User\User';
+        return $class === $this->getClass();
     }
 
-    public function updateUser($id, $fields)
-    {
+    public function updateUser(User $user)
+    {   
 
-        $user = $this->find($id);
-
-        if(!$user)
-        {
-            throw new UserNameNotFoundException(
-                    sprintf('No user with id: %s', $id);
-                );
-            
+        if (!$user instanceof User) {
+            throw new UnsupportedUserException(
+                sprintf('Instances of "%s" are not supported.', get_class($user))
+            );
         }
 
-        foreach ($fields as $key => $value) 
-        {
-            $func =  'set' . ucfirst($key);
-            $user->$func($value);
-        }
-
+        $this->_em->merge($user);
         $this->_em->flush();
 
+
     }
 
-    public function createUser($data)
+    public function createUser()
     {
         $user = new User();
-        foreach ($data as $key => $value) 
-        {
-            $func =  'set' . ucfirst($key);
-            $user->$func($value);
-        }
+
+        return $user;
+    }
+
+    public function registerNewUser(User &$user)
+    {
+        $confToken = sha512($user->getUsername() . $user->getEmail() . time());
+        $user->setConfimationToken($confToken);
+        $passwordHash = $this->pwEncoder->encodePassword($user->getPlainPassword());
+        $user->eraseCredentials();
 
         $this->_em->persist($user);
-        $this->_em->flush;
+        $this->_em->flush();
+
     }
 }
