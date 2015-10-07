@@ -17,9 +17,9 @@ security:
             pattern: ^/
             anonymous: ~
             http_basic: ~
-            form_login:
+            simple_form:
                 authenticator: login_authenticator
-                login_path: login
+                login_path: user_login
                 check_path: login_check
                 use_forward: true
                 default_target_path: user_lobby
@@ -31,5 +31,5 @@ security:
                 path: /
 
     encoders:
-        Acme\TestBundle\Entity\User:
-            id: password_encoder
+        AppBundle\Entity\Security\User:
+            id: security.password_encoder

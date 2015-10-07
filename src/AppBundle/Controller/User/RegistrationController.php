@@ -1,12 +1,12 @@
 <?php
 namespace AppBundle\Controller\User;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Controller\User\UserBaseController as BaseController;
 
 /**
 * 
 */
-class RegistrationController extends Controller
+class RegistrationController extends BaseController
 {
 	
 	public function registerAction()

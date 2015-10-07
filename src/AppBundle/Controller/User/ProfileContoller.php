@@ -1,12 +1,12 @@
 <?php
 namespace AppBundle\Contoller\User
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Controller\User\UserBaseController as BaseController;
 
 /**
 * 
 */
-class ProfileController extends Controller
+class ProfileController extends BaseController
 {
 	
 	public function showAction()

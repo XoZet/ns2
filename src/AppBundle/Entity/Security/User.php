@@ -1,8 +1,9 @@
 <?php
-namespace AppBundle\Security\User;
+namespace AppBundle\Entity\Security;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 
 

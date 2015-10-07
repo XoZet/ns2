@@ -1,12 +1,12 @@
 <?php
 namespace AppBundle\Controller\User;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Controller\User\UserBaseController as BaseController;
 
 /**
 * 
 */
-class RestoreController extends Controller
+class RestoreController extends BaseController
 {
 	
 	public function requestAction()
