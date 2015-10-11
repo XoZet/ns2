@@ -1,6 +1,9 @@
 <?php
 namespace AppBundle\Controller\User;
 
+
+use Symfony\Component\HttpFoundation\Request;
+
 use AppBundle\Controller\User\UserBaseController as BaseController;
 use AppBundle\Form\Type\RegistrationFormType as RegistrationFormType;
 
@@ -10,47 +13,77 @@ use AppBundle\Form\Type\RegistrationFormType as RegistrationFormType;
 class RegistrationController extends BaseController
 {
 	
-	public function registerAction()
+	public function registerAction(Request $request)
 	{
 		$form = $this->createForm(new RegistrationFormType());
-        $formHandler = $this->container->get('fos_user.registration.form.handler');
 
-        $process = $formHandler->process($confirmationEnabled);
-        if ($process) {
-            $user = $form->getData();
+        $form->handleRequest($request);
+        
+        $user = $form->getData();
 
-            $authUser = false;
-            if ($confirmationEnabled) {
-                $this->container->get('session')->set('fos_user_send_confirmation_email/email', $user->getEmail());
-                $route = 'fos_user_registration_check_email';
-            } else {
-                $authUser = true;
-                $route = 'fos_user_registration_confirmed';
-            }
-
-            $this->setFlash('fos_user_success', 'registration.flash.user_created');
-            $url = $this->container->get('router')->generate($route);
-            $response = new RedirectResponse($url);
-
-            if ($authUser) {
-                $this->authenticateUser($user, $response);
-            }
-
-            return $response;
+        if($form->isSubmitted() && $form->isValid()){
+            $this->getUserManager()->registerNewUser($user);
+            $confToken = $user->getConfirmationToken();
+            $subject = $this->get('translator')->trans('registration.email.subject', array('%username%' => $user->getUsername()), 'User');
+            $confURL = $this->generateUrl('user_registration_confirm', array(
+                'username' => $user->getUsername(),
+                 'token' => $user->getConfirmationToken() 
+                ), true);
+            $sender = $this->container->getParameter('mailer_sender');
+            $mail = \Swift_Message::newInstance()
+                ->setSubject($subject)
+                ->setFrom([$sender])
+                ->setTo($user->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        'AppBundle:emails:registration.html.twig',
+                        array(
+                            'username' => $user->getUsername(),
+                            'confirmationUrl' => $confURL)
+                    ),
+                    'text/html'
+                );
+            $this->get('mailer')->send($mail);
+            return $this->redirect('user_registration_checkmail');
         }
 
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:register.html.'.$this->getEngine(), array(
+        return $this->render('AppBundle:registration:registration.html.twig', array(
             'form' => $form->createView(),
         ));
 	}
 
 	public function checkMailAction()
 	{
-
+        return $this->render('AppBundle:registration:checkmail.html.twig');
 	}
 
-	public function checkTokenAction($token)
+	public function checkTokenAction($username, $token)
 	{
+        $um = $this->getUserManager();
+        $translator = $this->get('translator');
+
+        $success = true;
+
+        try{
+            $user = $um->loadUserByUsername($username);
+            if(!($token === $user->getConfirmationToken()))
+            {
+                $success = false;
+            } else {
+                $user->setEnabled(true);
+                $um->updateUser($user);
+                $success = true;
+            }
+
+        } catch (Exception $e) {
+            $success = false;
+        }
+
+        return $this->render('AppBundle:registration:confirm.html.twig', 
+                [
+                    'success' => $success
+                ]
+            );      
 
 	}
 

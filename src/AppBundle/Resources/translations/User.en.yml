@@ -5,15 +5,16 @@ security:
         remember_me: 'Keep me logged in.'
         submit: 'Login'
 registration:
-    check_mail: 'User created successfully. We send an e-mail to the provided e-mail adress with instructions on how to activate your account.'
+    check_mail: 'User created successfully. We send an e-mail to the provided e-mail address with instructions on how to activate your account.'
     confirmed: 'Success! Your account is now ready to use.'
+    confirm_failed: 'Failed! Invalid activation link!'
     submit: 'Register'
     email:
         subject: 'Welcome %username%!'
         message: |
-            'Hello %username%!'
+            Hello %username%!
 
-            'Please visit the following link to activate your account: %confirmationUrl%'
+            Please visit the following link to activate your account: %confirmationUrl%
 form:
     username: 'Username:'
     email: 'E-Mail:'

@@ -7,13 +7,14 @@ security:
 registration:
     check_mail: 'Benutzer wurde erstellt. Dir wurde eine E-Mail mit Anweisungen zur Aktivierung an die angegebene Adresse gesendet.'
     confirmed: 'Erfolg! Dein Account kann jetzt verwendet werden.'
+    confirm_failed: 'Fehlgeschlagen! Ungültiger Aktivierungslink!'
     submit: 'Registrieren'
     email:
         subject: 'Willkommen %username%!'
         message: |
-            'Hallo %username%!'
+            Hallo %username%!
 
-            'Bitte besuche folgenden Link um deinen Account zu erstellen: %confirmationUrl%'
+            Bitte besuche folgenden Link um deinen Account zu erstellen: %confirmationUrl%
 form:
     username: 'Username:'
     email: 'E-Mail:'

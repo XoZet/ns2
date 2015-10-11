@@ -78,8 +78,8 @@ class UserProvider extends EntityRepository implements UserProviderInterface
 
     public function registerNewUser(User &$user)
     {
-        $confToken = sha512($user->getUsername() . $user->getEmail() . time());
-        $user->setConfimationToken($confToken);
+        $confToken = \md5($user->getUsername() . $user->getEmail() . time());
+        $user->setConfirmationToken($confToken);
         $passwordHash = $this->pwEncoder->encodePassword($user->getPlainPassword());
         $user->eraseCredentials();
 

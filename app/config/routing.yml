@@ -43,14 +43,12 @@ user_login:
     defaults: { _controller: AppBundle:User\Login:login }
 login_check:
     path: /login_check
-user_list:
-    path: /user/list/{page}
-    defaults: { _controller: AppBundle:User:list, page: 1}
-    requirements:
-        page: \d+
-user_lobby:
-    path: /user/lobby
-    defaults: {_controller: AppBundle:User:lobby}
-user_profile:
-    path: /user/{name}
-    defaults: {_controller: AppBundle:User:profile}
+user_registration:
+    path: /user/register
+    defaults: {_controller: AppBundle:User\Registration:register}
+user_registration_checkmail:
+    path: /user/checkmail
+    defaults: {_controller: AppBundle:User\Registration:checkMail}
+user_registration_confirm:
+    path: /user/confirmregistration/{username}/{token}
+    defaults: {_controller: AppBundle:User\Registration:checkToken}

@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+	<p>
+	{% if success == true %}
+		{% trans from 'User' %}registration.confirmed{% endtrans %}
+	{% else %}
+		{% trans from 'User' %}registration.confirm_failed{% endtrans %}
+	{% endif %}
+	</p>
+{% endblock %}

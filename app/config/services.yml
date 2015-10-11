@@ -18,8 +18,4 @@ services:
         arguments: [ AppBundle\Entity\Security\User ]
         calls:
             - [setPwEncoder, ["@security.password_encoder"]]
-    user.baseController:
-        class: AppBundle\Controller\User\UserBaseController
-        calls:
-            - [setUserManager, ["@db_user_provider"]]
 

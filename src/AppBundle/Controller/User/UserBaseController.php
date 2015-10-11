@@ -15,12 +15,7 @@ class UserBaseController extends Controller
 	public function getUserManager()
 	{
 
-		return $this->_um;
-	}
-
-	public function setUserManager($userProvider)
-	{
-		$this->_um = $userProvider;
+		return $this->get('db_user_provider');
 	}
 
 }
