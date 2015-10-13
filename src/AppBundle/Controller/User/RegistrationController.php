@@ -3,6 +3,8 @@ namespace AppBundle\Controller\User;
 
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 
 use AppBundle\Controller\User\UserBaseController as BaseController;
 use AppBundle\Form\Type\RegistrationFormType as RegistrationFormType;
@@ -36,7 +38,7 @@ class RegistrationController extends BaseController
                 ->setTo($user->getEmail())
                 ->setBody(
                     $this->renderView(
-                        'AppBundle:emails:registration.html.twig',
+                        'AppBundle:Emails:registration.html.twig',
                         array(
                             'username' => $user->getUsername(),
                             'confirmationUrl' => $confURL)
@@ -44,17 +46,27 @@ class RegistrationController extends BaseController
                     'text/html'
                 );
             $this->get('mailer')->send($mail);
-            return $this->redirect('user_registration_checkmail');
+
+            $session = $request->getSession();
+            $session->set('redirect', 'register');
+            return $this->redirectToRoute('user_registration_checkmail');
         }
 
-        return $this->render('AppBundle:registration:registration.html.twig', array(
+        return $this->render('AppBundle:Registration:registration.html.twig', array(
             'form' => $form->createView(),
         ));
 	}
 
-	public function checkMailAction()
+	public function checkMailAction(Request $request)
 	{
-        return $this->render('AppBundle:registration:checkmail.html.twig');
+        $session =  $request->getSession();
+        $redirect = $session->get('redirect');
+        if(!('register' === $redirect))
+        {
+            return $this->redirectToRoute('_welcome');
+        }
+        $session->remove('redirect');
+        return $this->render('AppBundle:Registration:checkmail.html.twig');
 	}
 
 	public function checkTokenAction($username, $token)
@@ -79,16 +91,11 @@ class RegistrationController extends BaseController
             $success = false;
         }
 
-        return $this->render('AppBundle:registration:confirm.html.twig', 
+        return $this->render('AppBundle:Registration:confirm.html.twig', 
                 [
                     'success' => $success
                 ]
             );      
-
-	}
-
-	public function enabledAction()
-	{
 
 	}
 

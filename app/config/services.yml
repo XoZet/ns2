@@ -18,4 +18,9 @@ services:
         arguments: [ AppBundle\Entity\Security\User ]
         calls:
             - [setPwEncoder, ["@security.password_encoder"]]
+    login_listener:
+        class: 'AppBundle\Listener\LoginListener'
+        arguments: ['@security.context', '@doctrine']
+        tags:
+            - { name: 'kernel.event_listener', event: 'security.interactive_login' }
 
