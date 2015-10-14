@@ -52,3 +52,6 @@ user_registration_checkmail:
 user_registration_confirm:
     path: /user/confirmregistration/{username}/{token}
     defaults: {_controller: AppBundle:User\Registration:checkToken}
+user_profile:
+    path: /user/profile/{username}
+    defaults: {_controller: AppBundle:User\Profile:show}

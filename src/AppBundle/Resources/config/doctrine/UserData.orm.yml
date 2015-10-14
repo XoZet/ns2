@@ -43,7 +43,7 @@ AppBundle\Entity\UserData:
     oneToOne:
         user:
             targetEntity: User
-            cascade: [ merge, refresh ]
+            cascade: []
             fetch: LAZY
             inversedBy: null
             joinColumns:

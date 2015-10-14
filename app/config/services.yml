@@ -18,6 +18,11 @@ services:
         arguments: [ AppBundle\Entity\Security\User ]
         calls:
             - [setPwEncoder, ["@security.password_encoder"]]
+    userdata_provider:
+        class: AppBundle\Provider\UserProvider
+        factory_service: doctrine
+        factory_method: getRepository
+        arguments: [ AppBundle\Entity\UserData ]
     login_listener:
         class: 'AppBundle\Listener\LoginListener'
         arguments: ['@security.context', '@doctrine']
