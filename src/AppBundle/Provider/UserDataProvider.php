@@ -24,4 +24,29 @@ class UserDataProvider extends EntityRepository
 
 	}
 
+	public function createDataForUser(UserInterface $user)
+	{
+
+		$data = new UserData();
+		$data->setUser($user);
+
+		$this->_em->persist($data);
+		$this->_em->flush();
+
+		return $data;
+
+	}
+
+	public function updateData(UserData $data)
+	{
+		if (!$data instanceof UserData) {
+            throw new UnsupportedUserException(
+                sprintf('Instances of "%s" are not supported.', get_class($data))
+            );
+        }
+
+        $this->_em->merge($data);
+        $this->_em->flush();
+	}
+
 }

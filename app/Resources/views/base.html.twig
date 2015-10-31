@@ -7,7 +7,30 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block content %}{% endblock %}
+        <div class="wrapper">
+            <header class="main_header">
+                
+            </header>
+            <section class="info">
+                <div class="infobox">{{ render(controller('AppBundle:InfoBox:news'))}}</div>
+                <div class="infobox">{{ render(controller('AppBundle:InfoBox:lastCW'))}}</div>
+                <div class="infobox">{{ render(controller('AppBundle:InfoBox:nextCW'))}}</div>
+                <div class="infobox">{{ render(controller('AppBundle:InfoBox:forum'))}}</div>
+            </section>
+            <section class="content_wrapper">
+                <aside class="sidebar">
+                    <section>
+                        <h2>Navigation</h2>
+                        <nav>
+                            {{ render(controller('AppBundle:Navigation:render')) }}
+                        </nav>
+                    </section>
+                </aside>
+                <section class="main_content">
+                    {% block content %}{% endblock %}
+                </section>
+            </section>
+        </div>
         {% block javascripts %}{% endblock %}
     </body>
 </html>
