@@ -1,10 +1,10 @@
-AppBundle\Entity\UserData:
+AppBundle\Entity\Navigation\NavigationItem:
     type: entity
-    table: user_data
+    table: navigationitem
     indexes:
-        user_id:
+        category:
             columns:
-                - user_id
+                - category
     id:
         id:
             type: integer
@@ -15,40 +15,27 @@ AppBundle\Entity\UserData:
             generator:
                 strategy: IDENTITY
     fields:
-        firstName:
+        transkey:
             type: string
-            nullable: true
-            length: 256
+            nullable: false
+            length: 255
             options:
                 fixed: false
-            column: first_name
-        lastName:
+        route:
             type: string
-            nullable: true
-            length: 256
+            nullable: false
+            length: 255
             options:
                 fixed: false
-            column: last_name
-        birthDate:
-            type: datetime
-            nullable: true
-            column: birth_date
-        playerName:
-            type: string
-            nullable: true
-            length: 256
-            options:
-                fixed: false
-            column: player_name
     manyToOne:
-        user:
-            targetEntity: User
+        category:
+            targetEntity: Navigationcategory
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                user_id:
+                category:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

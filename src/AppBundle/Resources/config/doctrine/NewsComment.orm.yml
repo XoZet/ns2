@@ -37,24 +37,22 @@ AppBundle\Entity\NewsComment:
     manyToOne:
         article:
             targetEntity: NewsArticle
-            cascade: []
+            cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
                 article_id:
                     referencedColumnName: id
-                    onDelete: CASCADE
             orphanRemoval: false
         author:
             targetEntity: User
-            cascade: []
+            cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
                 author:
                     referencedColumnName: id
-                    onDelete:
             orphanRemoval: false
     lifecycleCallbacks: {  }
