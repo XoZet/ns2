@@ -3,15 +3,23 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            {% stylesheets
+                'assets/css/test.css'
+                'assets/css/color.css'
+                filter='cssrewrite' %}
+                <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+        <div class="statusbar">TEST STATUSBAR</div>
         <div class="wrapper">
             <header class="main_header">
                 
             </header>
-            <section class="info">
+            <section class="info_wrapper">
                 <div class="infobox">{{ render(controller('AppBundle:InfoBox:news'))}}</div>
                 <div class="infobox">{{ render(controller('AppBundle:InfoBox:lastCW'))}}</div>
                 <div class="infobox">{{ render(controller('AppBundle:InfoBox:nextCW'))}}</div>
@@ -19,8 +27,7 @@
             </section>
             <section class="content_wrapper">
                 <aside class="sidebar">
-                    <section>
-                        <h2>Navigation</h2>
+                    <section class="navigation">
                         <nav>
                             {{ render(controller('AppBundle:Navigation:render')) }}
                         </nav>
@@ -30,7 +37,12 @@
                     {% block content %}{% endblock %}
                 </section>
             </section>
+            <footer class="main_footer">
+                TESTFOOTER
+            </footer>
         </div>
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+            
+        {% endblock %}
     </body>
 </html>
