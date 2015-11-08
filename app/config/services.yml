@@ -25,7 +25,7 @@ services:
         arguments: [ AppBundle\Entity\UserData ]
     login_listener:
         class: 'AppBundle\Listener\LoginListener'
-        arguments: ['@security.context', '@doctrine']
+        arguments: ['@security.token_storage', '@doctrine']
         tags:
             - { name: 'kernel.event_listener', event: 'security.interactive_login' }
 

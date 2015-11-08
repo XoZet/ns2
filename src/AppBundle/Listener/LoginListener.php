@@ -2,7 +2,7 @@
 namespace AppBundle\Listener;
 
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
-use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
 
 class LoginListener
@@ -12,10 +12,10 @@ class LoginListener
 
 	private $em;
 	
-	public function __construct(SecurityContext $securityContext, Doctrine $doctrine)
+	public function __construct(TokenStorage $securityContext, Doctrine $doctrine)
 	{
 		$this->securityContext = $securityContext;
-		$this->em              = $doctrine->getEntityManager();
+		$this->em              = $doctrine->getManager();
 	}
 	
 	public function onSecurityInteractiveLogin(InteractiveLoginEvent $event)
