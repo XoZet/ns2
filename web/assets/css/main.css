@@ -85,25 +85,9 @@ body {
 	min-width: 100px;
 	text-align: center;
 }
-.navigation {
+.nav_sec {
 	border-bottom-width: 2px;
 	border-bottom-style: solid; 
-}
-.navigation h2 {
-	font-weight: bold;
-	font-size: 20px;
-	text-align: center;
-	border-bottom-width: 1px;
-	border-bottom-style: dotted;
-}
-.navigation nav {
-	margin: 2px 0;
-}
-
-.navigation nav a {
-	display: block;
-	width: 100%;
-
 }
 
 .main_content {
@@ -111,7 +95,9 @@ body {
 	flex-grow: 14;
 	flex-shrink: 1;
 }
+
 .main_footer {
 	width: 100%;
 	height: 25px;
+	text-align: center;
 }

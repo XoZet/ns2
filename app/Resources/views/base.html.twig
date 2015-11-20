@@ -5,8 +5,9 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
             {% stylesheets
-                'assets/css/test.css'
+                'assets/css/main.css'
                 'assets/css/color.css'
+                'assets/css/sidenav.css'
                 filter='cssrewrite' %}
                 <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %}
@@ -27,10 +28,8 @@
             </section>
             <section class="content_wrapper">
                 <aside class="sidebar">
-                    <section class="navigation">
-                        <nav>
-                            {{ render(controller('AppBundle:Navigation:render')) }}
-                        </nav>
+                    <section class="nav_sec">
+                        {{ render(controller('AppBundle:Navigation:render')) }}
                     </section>
                 </aside>
                 <section class="main_content">

@@ -1,0 +1,15 @@
+.navigation h2 {
+	font-weight: bold;
+	font-size: 20px;
+	text-align: center;
+	border-bottom-width: 1px;
+	border-bottom-style: dotted;
+}
+.navigation nav {
+	margin: 2px 0;
+}
+
+.navigation nav a {
+	display: block;
+	width: 100%;
+}
