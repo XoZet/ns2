@@ -19,27 +19,60 @@ AppBundle\Entity\User:
         username:
             type: string
             nullable: false
-            length: 32
-            unique: true
+            length: 255
+            options:
+                fixed: false
+        password:
+            type: string
+            nullable: false
+            length: 255
             options:
                 fixed: false
         email:
             type: string
             nullable: false
-            length: 256
-            unique: true
+            length: 255
             options:
                 fixed: false
-        emailAuth:
+        confirmationToken:
             type: string
             nullable: false
-            length: 64
+            length: 255
             options:
                 fixed: false
-            column: email_auth
-        active:
+            column: confirmation_token
+        enabled:
             type: boolean
             nullable: false
             options:
                 default: '0'
+        roles:
+            type: text
+            nullable: false
+            length: null
+            options:
+                fixed: false
+        registrationDate:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: registration_date
+        lastLogin:
+            type: datetime
+            nullable: true
+            column: last_login
+        expired:
+            type: boolean
+            nullable: false
+            options:
+                default: '0'
+        expiresAt:
+            type: datetime
+            nullable: true
+            column: expires_at
+        passwordRequestedAt:
+            type: datetime
+            nullable: true
+            column: password_requested_at
     lifecycleCallbacks: {  }

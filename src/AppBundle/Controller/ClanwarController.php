@@ -3,14 +3,14 @@ namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class NewsController extends Controller
+class ClanwarController extends Controller
 {
-	public indexAction($page = 1)
+	public function indexAction($page = 1)
 	{
 
 	}
 
-	public showAction($id)
+	public function showAction($id)
 	{
 		
 	}

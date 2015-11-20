@@ -5,9 +5,13 @@ AppBundle\Entity\ClanwarComments:
         author:
             columns:
                 - author
+                - cw_id
         cw_id:
             columns:
                 - cw_id
+        IDX_BA5D9554BDAFD8C8:
+            columns:
+                - author
     id:
         id:
             type: integer

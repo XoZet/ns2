@@ -10,12 +10,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class NewsController extends Controller
 {
 	
-	public indexAction($page = 1)
+	public function indexAction($page = 1)
 	{
-
+		return $this->render('AppBundle:News:index.html.twig', []);
 	}
 
-	public showAction($id)
+	public function showAction($id)
 	{
 		
 	}

@@ -1,0 +1,62 @@
+AppBundle\Entity\Security\User:
+    type: entity
+    table: user
+    repositoryClass: AppBundle\Security\User\UserProvider
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        username:
+            type: string
+            nullable: false
+            length: 32
+            unique: true
+            options:
+                fixed: false
+        email:
+            type: string
+            nullable: false
+            length: 256
+            unique: true
+            options:
+                fixed: false
+        confirmationToken:
+            type: string
+            nullable: false
+            length: 64
+            options:
+                fixed: false
+            column: confirmation_token
+        enabled:
+            type: boolean
+            nullable: false
+        roles:
+            type: simple_array
+            nullable: false
+        registrationDate:
+            type: datetime
+            nullable: false
+            column: registration_date
+            options:
+                default: CURRENT_TIMESTAMP
+        lastLogin:
+            type: datetime
+            nullable: true
+            column: last_login
+        expirationDate:
+            type: datetime
+            nullable: true
+            column: expires_at
+        pwResetRequestDate:
+            type: datetime
+            nullable: true
+            column: password_requested_at
+        expired:
+            type: boolean
+            nullable: false

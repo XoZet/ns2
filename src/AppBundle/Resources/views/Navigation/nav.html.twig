@@ -1,0 +1,18 @@
+{% if has_cat %}
+	{% for key, item in nav %}
+		<h2>{{ key }}</h2>
+		<ul>
+			{% for key2, item2 in item %}
+				<li><a href="{{ path(item2) }}">{{ key2 }}</a></li>
+			{% endfor %}
+		</ul>
+		
+	{% endfor %}
+{% else %}
+	<h2>Navigation</h2>
+	<ul>
+		{% for key,item in nav %}
+			<li><a href="{{ path(item) }}">{{ key }}</a></li>
+		{% endfor %}
+	</ul>
+{% endif %}
